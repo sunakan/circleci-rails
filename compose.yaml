@@ -1,0 +1,17 @@
+---
+
+services:
+  rails:
+    image: ruby:3.4.2
+    volumes:
+      - type: bind
+        source: ${PWD}/
+        target: /circleci-rails/
+      - type: volume
+        source: bundle
+        target: /usr/local/bundle
+    ports:
+      - "3000:3000"
+
+volumes:
+  bundle:
