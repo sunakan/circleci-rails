@@ -1,12 +1,15 @@
 inherit_gem:
 
+#
+# 基本的に有効にして、機械的にできる保守性を上げる
+#
 AllCops:
   TargetRubyVersion: 3.4
   NewCops: enable
   EnabledByDefault: true
 
 # RSpec/DescribeClass
-# https:/Style/RequireOrder/docs.rubocop.org/rubocop-rspec/cops_rspec.html#rspecdescribeclass
+# https://docs.rubocop.org/rubocop-rspec/cops_rspec.html#rspecdescribeclass
 # RSpecのトップレベルはClass名を指定
 # デフォルト: 有効
 #
@@ -26,9 +29,53 @@ RSpec/DescribeClass:
 # config/routes.rb
 #   - Rails routingにて、キーはStringである必要があったため
 Style/StringHashKeys:
-  Enabled: true
   Exclude:
     - 'config/routes.rb'
+
+# Style/MethodCallWithArgsParentheses
+# https://docs.rubocop.org/rubocop/cops_style.html#stylemethodcallwithargsparentheses
+# 括弧の強制
+# デフォルト: 無効
+#
+# 除外
+# spec/**/*_spec.rb
+# - `expect(a).to(eq(a))` が読み慣れないため
+Style/MethodCallWithArgsParentheses:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
+# Style/AsciiComments
+# https://docs.rubocop.org/rubocop/cops_style.html#styleasciicomments
+# コメントは英語のみ(日本語禁止)
+# デフォルト: 無効
+#
+# コメントに日本語を許可
+Style/AsciiComments:
+  Enabled: false
+
+# Style/Copyright
+# https://docs.rubocop.org/rubocop/cops_style.html#stylecopyright
+# コピーライトを載せるかどうか
+# デフォルト: 無効
+#
+# 載せないためOFF
+Style/Copyright:
+  Enabled: false
+
+# Style/RequireOrder
+# https://docs.rubocop.org/rubocop/cops_style.html#stylerequireorder
+# requireの順番(昇順)
+# デフォルト: 無効
+#
+# 除外
+# config/application.rb
+# config/boot.rb
+# - デフォルトでrequireの順番が昇順になっていない
+#   - 順番が大事か不明なため、放置
+Style/RequireOrder:
+  Exclude:
+    - 'config/application.rb'
+    - 'config/boot.rb'
 
 # Bundler/GemVersion
 # https://docs.rubocop.org/rubocop/cops_bundler.html#bundlergemversion
@@ -36,6 +83,33 @@ Style/StringHashKeys:
 #
 # 基本OFF(基本最新を利用)
 Bundler/GemVersion:
+  Enabled: false
+
+# Lint/ConstantResolution
+# https://docs.rubocop.org/rubocop/cops_lint.html#lintconstantresolution
+# クラスを指定する時、::を必要とするかどうか
+# デフォルト: 無効
+#
+# 見慣れないため、OFF
+Lint/ConstantResolution:
+  Enabled: false
+
+# Lint/NumberConversion
+# https://docs.rubocop.org/rubocop/cops_lint.html#lintnumberconversion
+# '10'.to_i → Integer('10')
+# デフォルト: 無効
+#
+# 慣れないため、OFF
+Lint/NumberConversion:
+  Enabled: false
+
+# Layout/RedundantLineBreak
+# https://docs.rubocop.org/rubocop/cops_layout.html#layoutredundantlinebreak
+# 改行禁止
+# デフォルト: 無効
+#
+# 改行した方が見やすい場合は多々あると考えるため、OFF
+Layout/RedundantLineBreak:
   Enabled: false
 
 plugins:
