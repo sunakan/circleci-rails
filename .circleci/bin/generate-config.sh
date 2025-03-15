@@ -12,10 +12,10 @@ set -euo pipefail
 # 引数
 # 1. 出力するファイルパス(default: .circleci/config.yml)
 #
-readonly config_path=${1:-.circleci/config.yml}
+readonly config_path=${1:-config.yml}
 
 # configファイルを生成
-circleci --skip-update-check config pack .circleci/src > "${config_path}"
+circleci --skip-update-check config pack src/ > "${config_path}"
 
 # 構文チェック
 circleci --skip-update-check config validate "${config_path}"
