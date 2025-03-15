@@ -2,6 +2,7 @@ inherit_gem:
 
 AllCops:
   TargetRubyVersion: 3.4
+  NewCops: enable
 
 # RSpec/DescribeClass
 # https://docs.rubocop.org/rubocop-rspec/cops_rspec.html#rspecdescribeclass
