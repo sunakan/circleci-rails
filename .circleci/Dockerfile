@@ -16,3 +16,4 @@ RUN curl -fsSL https://github.com/CircleCI-Public/circleci-cli/releases/download
 
 RUN adduser ci
 USER ci
+WORKDIR /home/ci/ci-tools
