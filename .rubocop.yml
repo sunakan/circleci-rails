@@ -33,4 +33,5 @@ Style/StringHashKeys:
 plugins:
   - rubocop-rails
   - rubocop-rspec
+  - rubocop-rspec_rails
   - rubocop-performance
