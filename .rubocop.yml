@@ -3,6 +3,16 @@ inherit_gem:
 AllCops:
   TargetRubyVersion: 3.4
 
+# RSpec/DescribeClass
+# https://docs.rubocop.org/rubocop-rspec/cops_rspec.html#rspecdescribeclass
+#
+# RSpecのトップレベルはClass名を指定
+# spec/sandbox/**/*
+# RSpecだけでのファイルを用意する時もあるため、無視する
+RSpec/DescribeClass:
+  Exclude:
+    - spec/sandbox/**/*
+
 plugins:
   - rubocop-rails
   - rubocop-rspec
