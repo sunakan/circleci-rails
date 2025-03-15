@@ -1,0 +1,8 @@
+#
+# Hello
+#
+resource_class: arm.medium
+executor:
+  name: ruby
+steps:
+  - hello
