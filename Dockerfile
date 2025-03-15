@@ -1,18 +1,15 @@
 # syntax=docker/dockerfile:1
 # check=error=true
 
-# This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
-# docker build -t circleci_rails .
-# docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name circleci_rails circleci_rails
-
-# For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
+# このDockrfileは本番環境用で、開発環境では使用しないでください
+# Kaml or 手動ビルドを利用してください
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
 ARG RUBY_VERSION=3.4.2
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
-WORKDIR /rails
+WORKDIR /rails-app
 
 # Install base packages
 RUN apt-get update -qq && \
@@ -62,7 +59,7 @@ RUN groupadd --system --gid 1000 rails && \
 USER 1000:1000
 
 # Entrypoint prepares the database.
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+ENTRYPOINT ["/rails-app/bin/docker-entrypoint"]
 
 # Start server via Thruster by default, this can be overwritten at runtime
 EXPOSE 80

@@ -6,7 +6,7 @@ services:
     volumes:
       - type: bind
         source: ${PWD}/
-        target: /circleci-rails/
+        target: /rails-app/
       - type: volume
         source: bundle
         target: /usr/local/bundle
