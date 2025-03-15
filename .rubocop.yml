@@ -3,7 +3,7 @@ inherit_gem:
 AllCops:
   TargetRubyVersion: 3.4
   NewCops: enable
-  #EnabledByDefault: true
+  EnabledByDefault: true
 
 # RSpec/DescribeClass
 # https:/Style/RequireOrder/docs.rubocop.org/rubocop-rspec/cops_rspec.html#rspecdescribeclass
@@ -29,6 +29,14 @@ Style/StringHashKeys:
   Enabled: true
   Exclude:
     - 'config/routes.rb'
+
+# Bundler/GemVersion
+# https://docs.rubocop.org/rubocop/cops_bundler.html#bundlergemversion
+# gemのバージョンを指定
+#
+# 基本OFF(基本最新を利用)
+Bundler/GemVersion:
+  Enabled: false
 
 plugins:
   - rubocop-rails
