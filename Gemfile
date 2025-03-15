@@ -2,55 +2,84 @@
 
 source 'https://rubygems.org'
 
-# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+# rails
+# Railsアプリ本体gem
 gem 'rails', '~> 8.0.2'
-# Use mysql as the database for Active Record
+
+# mysql2
+# MySQLに接続するためのgem
 gem 'mysql2', '~> 0.5'
-# Use the Puma web server [https://github.com/puma/puma]
+
+# puma
+# webサーバー(デファクト)
 gem 'puma', '>= 5.0'
-# Build JSON APIs with ease [https://github.com/rails/jbuilder]
-# gem "jbuilder"
 
-# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: %i[windows jruby]
-
-# Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
+# solid_cable
+# Rails 8でデフォルトのAction Cableアダプターとして導入されたGem
+# Webソケットとリアルタイム更新を提供し、Redisなどの外部メッセージブローカーを必要とせずに、DBに直接メッセージを保存・取得
 gem 'solid_cable'
+
+# solid_cache
+# RailsのキャッシュをDBに保存するためのGem
+# RedisやMemcachedなどの外部キャッシュストアを使用せずに、DBをキャッシュストアとして利用
 gem 'solid_cache'
+
+# solid_queue
+# DBをバックエンドに使用するActive Jobのキューイングバックエンド
+# RedisやSidekiqなどの外部キューイングシステムを必要とせずに、DBを直接使用してジョブを管理
 gem 'solid_queue'
 
+# bootsnap
 # Reduces boot times through caching; required in config/boot.rb
+# RubyおよびRailsアプリの起動時間を短縮するためのGem
+# 主にパススキャンとコンパイルキャッシュを最適化することで、起動時間を改善
+# YAMLやJSONの読み込みもキャッシュ化する機能有り
+# config/boot.rbに `require 'bootsnap/setup'` が必要
+# 効果
+# - 起動時間の短縮(例: Shopifyでは約75%短縮)
+# - キャッシュディレクトリが書き込み可能である必要がある
 gem 'bootsnap', require: false
 
-# Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
-gem 'kamal', require: false
-
-# Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
+# HTTPアセットのキャッシュと圧縮、X-SendfileアクセラレーションをPumaサーバーに追加するGem
+# Webアプリケーションのパフォーマンスを向上
+# thrusterはBasecampによって開発されていますが、詳細な情報は提供されていない
 gem 'thruster', require: false
 
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
-
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
-# gem "rack-cors"
-
 group :development do
+  # rubocop
+  # rubyのlinter
+  # .rubocop.ymlにルールのON/OFF、細かい制御を記載
+  # pluginでルール追加やプリセットも追加可能
   gem 'rubocop'
+
+  # rubocop-performance
+  # rubocopのパフォーマンス系の拡張
+  # 主に `Performance/*` ルールが追加される
   gem 'rubocop-performance'
+
+  # rubocop-rails
+  # rubocopのrails系の拡張
+  # 主に `Rails/*` ルールが追加される
   gem 'rubocop-rails'
+
+  # rubocop-rspec
+  # rubocopのrspecの拡張
+  # 主に `RSpec/*` ルールが追加される
   gem 'rubocop-rspec'
+
+  # rubocop-rspec_rails
+  # rubocopのrails_rspecの拡張
+  # 主に `RSpecRails/*` `が追加される
   gem 'rubocop-rspec_rails'
 end
 
 group :development, :test do
-  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
-
-  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
+  # brakeman
+  # Railsアプリケーションのセキュリティ脆弱性を静的解析で検出するためのGem
   gem 'brakeman', require: false
 
+  # rspec-rails
+  # RSpecをRailsアプリで使用するためのGem
+  # RSpecはRubyのテストフレームワーク
   gem 'rspec-rails'
 end
