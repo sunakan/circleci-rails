@@ -21,6 +21,9 @@ require 'action_cable/engine'
 Bundler.require(*Rails.groups)
 
 module CircleciRails
+  # CircleciRails::Applicationは、Railsアプリケーションのトップレベルクラス
+  # rails newした時に自動で作られるクラス
+  # アプリケーション全体の設定や初期化をする
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
