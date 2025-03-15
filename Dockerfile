@@ -8,35 +8,34 @@
 ARG RUBY_VERSION=3.4.2
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
-# Rails app lives here
 WORKDIR /rails-app
 
-# Install base packages
+# ベースとなるパッケージをインストール
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl default-mysql-client libjemalloc2 libvips && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# Set production environment
+# 環境変数(本番環境用)
 ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development"
 
-# Throw-away build stage to reduce size of final image
+# 最終的なイメージサイズを小さくするための中間ステージ
 FROM base AS build
 
-# Install packages needed to build gems
+# gemに必要な最小限のパッケージ
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential default-libmysqlclient-dev git libyaml-dev pkg-config && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# Install application gems
+# gemのインストール
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
     bundle exec bootsnap precompile --gemfile
 
-# Copy application code
+# アプリコードのcopy
 COPY . .
 
 # Precompile bootsnap code for faster boot times
@@ -45,7 +44,7 @@ RUN bundle exec bootsnap precompile app/ lib/
 
 
 
-# Final stage for app image
+# 最終ステージ
 FROM base
 
 # Copy built artifacts: gems, application
@@ -64,3 +63,29 @@ ENTRYPOINT ["/rails-app/bin/docker-entrypoint"]
 # Start server via Thruster by default, this can be overwritten at runtime
 EXPOSE 80
 CMD ["./bin/thrust", "./bin/rails", "server"]
+
+#
+# Note
+#
+# syntax=docker/dockerfile:1
+# - Dockerfileの構文バージョンを指定
+# - `docker/dockerfile:N`は、Dockerfile構文のバージョンNの最新リリースを使用を意味する
+#
+# check=error=true
+# - ビルド時のチェックが警告ではなく、エラーになる
+# - ビルド中に警告が発生するとビルドが失敗する
+#
+# BUNDLE_DEPLOYMENT
+# Bundlerのデプロイモードの有効化・無効化
+# - 1: 有効化
+#   - Gemfile.lockとGemfileの不一致をチェック。これにより、依存関係の整合性を保つ
+# - 0: 無効化(デフォルト: false)
+#   - Gemfile.lockが更新されていない場合でも、Bundlerは警告やエラーを出さずにGemをインストール可能
+#
+# BUNDLE_PATH="/usr/local/bundle"
+# - BundlerがGemをインストールするディレクトリを指定
+#
+# BUNDLE_WITHOUT="development"
+# - Bundlerが特定のグループのGemをインストールしないように指定
+# - ここでは「development」グループを指定
+#
