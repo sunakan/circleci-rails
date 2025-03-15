@@ -13,9 +13,26 @@ services:
         source: bundle
         target: /usr/local/bundle
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
       BINDING: 0.0.0.0
+      DB_HOST: db
+    depends_on:
+      - db
+  # 2025年3月15日時点では、OSはoraclelinuxのみ
+  db:
+    image: mysql:8.4-oracle
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      TZ: 'Asia/Tokyo'
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - type: volume
+        source: db-data
+        target: /var/lib/mysql
+    ports:
+      - '3306:3306'
 
 volumes:
   bundle:
+  db-data:
