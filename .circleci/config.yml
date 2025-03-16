@@ -18,7 +18,7 @@ jobs:
           name: debug
           command: |
             #!/usr/bin/env sh
-            eset -eu
+            set -eu
             echo "pwd=$(pwd)"
             uname -a
             whoami
