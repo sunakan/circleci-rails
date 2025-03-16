@@ -18,7 +18,7 @@ jobs:
       image: ubuntu-2404:current
     environment:
       CIRCLECI_CLI_TELEMETRY_OPTOUT: 'true'
-    resource_class: small
+    resource_class: arm.medium
     steps:
       - checkout
       - run:
