@@ -19,7 +19,7 @@ Error: config compilation contains errors: config compilation contains errors:
         - There are no workflows or build jobs in the config.
 ```
 
-### machineイメージのresource_classの下限はmedium
+### machineのresource_classの下限はmedium
 
 - サポートされていない `small` で指定すると、以下のように怒られる
 
@@ -27,22 +27,22 @@ Error: config compilation contains errors: config compilation contains errors:
 Resource class machine for small, image ubuntu-2204:2024.11.1 is not available for your project, or is not a valid resource class. This message will often appear if the pricing plan for this project does not support machine use.
 ```
 
-- https://circleci.com/docs/configuration-reference/#linuxvm-execution-environment
 - https://circleci.com/pricing/price-list/
-
 - メモリ観点で1番コスパが良いのは、MachineのArm
 - Machineを選択する方が「Spin up environment」が短い
   - dockerだとpullするのに時間を食ったりする
+    - Machineだと `0s`
+    - Docker(cimg/base:キャッシュ有り)だと `2s`
   - dockerを利用する場合も、cimgはキャッシュヒット率が高いらしい
 
 **Small**
 
-| type    | Archi | Class | vCPUs | RAM | Cost          | RAM/Cost |
-|:--------|:------|:------|:------|:----|:--------------|:---------|
-| docker  | x86   | small | 1     | 2GB | 5 credits/min | 500MB    |
-| docker  | Arm   | 無い  | - | -   | -             | -        |
-| machine | x86   | 無い  | - | -   | -             | -        |
-| machine | Arm   | 無い  | - | -   | -             | -        |
+| type                          | Archi | Class | vCPUs | RAM | Cost          | RAM/Cost |
+|:------------------------------|:------|:------|:------|:----|:--------------|:---------|
+| docker                        | x86   | small | 1     | 2GB | 5 credits/min | 500MB    |
+| docker                        | Arm   | 無い  | - | -   | -             | -        |
+| machine                       | x86   | 無い  | - | -   | -             | -        |
+| machine                       | Arm   | 無い  | - | -   | -             | -        |
 
 **Medium**
 
