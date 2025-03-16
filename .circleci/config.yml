@@ -2,7 +2,49 @@ version: 2.1
 setup: true
 
 jobs:
-  setup:
+  container-cimg-base:
+    docker:
+      image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: hello
+          command: |
+            #!/usr/bin/env sh
+            set -eu
+            echo "pwd=$(PWD)"
+            ls -al
+            echo 'Hello: cimg/base:current'
+  container-alpine:
+    docker:
+      image: alpine:latest
+    resource_class: small
+    steps:
+      - run:
+          name: hello
+          command: |
+            #!/usr/bin/env sh
+            set -eu
+            echo "pwd=$(PWD)"
+            ls -al
+            echo 'Hello: cimg/base:current'
+  container-my-img:
+    docker:
+      image: ghcr.io/sunakan/circleci-rails-ci:latest
+    resource_class: small
+    steps:
+      - run:
+          name: hello
+          command: |
+            #!/usr/bin/env sh
+            set -eu
+            echo "pwd=$(PWD)"
+            ls -al
+            echo 'Hello: ghcr.io/sunakan/circleci-rails-ci:latest'
+  machine-01:
+    machine:
+      image: ubuntu-2204:2024.11.1
+    resource_class: small
     steps:
       - checkout
       - run:
@@ -10,4 +52,6 @@ jobs:
           command: |
             #!/usr/bin/env sh
             set -eu
-            echo 'Hello'
+            echo "pwd=$(PWD)"
+            ls -al
+            echo 'Hello: ubuntu-2204:2024.11.1'
