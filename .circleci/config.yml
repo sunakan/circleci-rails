@@ -4,7 +4,7 @@ setup: true
 jobs:
   container-cimg-base:
     docker:
-      image: cimg/base:current
+      - image: cimg/base:current
     resource_class: small
     steps:
       - run:
@@ -17,7 +17,7 @@ jobs:
             echo 'Hello: cimg/base:current'
   container-alpine:
     docker:
-      image: alpine:latest
+      - image: alpine:latest
     resource_class: small
     steps:
       - run:
@@ -27,10 +27,10 @@ jobs:
             set -eu
             echo "pwd=$(PWD)"
             ls -al
-            echo 'Hello: cimg/base:current'
+            echo 'Hello: alpine:latest'
   container-my-img:
     docker:
-      image: ghcr.io/sunakan/circleci-rails-ci:latest
+      - image: ghcr.io/sunakan/circleci-rails-ci:latest
     resource_class: small
     steps:
       - run:
@@ -43,7 +43,7 @@ jobs:
             echo 'Hello: ghcr.io/sunakan/circleci-rails-ci:latest'
   machine-01:
     machine:
-      image: ubuntu-2204:2024.11.1
+      - image: ubuntu-2204:2024.11.1
     resource_class: small
     steps:
       - checkout
