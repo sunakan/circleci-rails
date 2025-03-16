@@ -38,9 +38,8 @@ jobs:
       - run:
           name: config生成
           command: cd .circleci && bin/generate-config.sh
-      - run:
-          name: 確認
-          command: cat .circleci/generated-config.yml
+      - continuation/continue:
+          configuration_path: .circleci/generated-config.yml
 workflows:
   dynamic-config:
     jobs:
