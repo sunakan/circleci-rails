@@ -1,5 +1,5 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/usr/bin/env sh
+set -eu
 #set -x
 # -e: エラーが発生した時点でスクリプトを終了
 # -u: 未定義の変数を使用した場合にエラーを発生

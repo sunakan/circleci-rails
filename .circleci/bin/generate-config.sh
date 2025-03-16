@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 set -euo pipefail
 #set -x
 # -e: エラーが発生した時点でスクリプトを終了
