@@ -2,18 +2,20 @@ version: 2.1
 setup: true
 
 orbs:
+  # circleci-cli
+  # https://circleci.com/developer/orbs/orb/circleci/circleci-cli
+  orb-cli: circleci/circleci-cli@0.1.9
   # continuation
   # https://circleci.com/developer/ja/orbs/orb/circleci/continuation
-  continuation: circleci/continuation@1
-
+  orb-continuation: circleci/continuation@1
 #
 # Dynamic Configurationを利用
 #
 # continuation/continueはcurlが必要なため、alpineなどのdocker imageだとインストールする必要がある
 jobs:
   setup:
-    docker:
-      - image: circleci/circleci-cli:latest
+    machine:
+      image: ubuntu-2404:current
     environment:
       CIRCLECI_CLI_TELEMETRY_OPTOUT: 'true'
     resource_class: small
@@ -27,6 +29,7 @@ jobs:
             echo "pwd=$(pwd)"
             uname -a
             whoami
+      - orb-cli/install
       - run:
           name: circleci-cliコマンドバージョン確認
           command: |
@@ -39,7 +42,7 @@ jobs:
       - run:
           name: config生成
           command: cd .circleci && bin/generate-config.sh
-      - continuation/continue:
+      - orb-continuation/continue:
           configuration_path: .circleci/generated-config.yml
 workflows:
   dynamic-config:
