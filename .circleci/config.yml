@@ -1,28 +1,13 @@
-commands:
-    hello:
-        description: Hello
-        steps:
-            - run:
-                command: |
-                    #!/usr/bin/env sh
-                    set -eu
-                    echo 'Hello'
-                name: Hello
-executors:
-    ruby:
-        docker:
-            - image: cimg/ruby:3.4.2
-        working_directory: /rails-app/
-jobs:
-    hello:
-        executor:
-            name: ruby
-        resource_class: arm.medium
-        steps:
-            - hello
 version: 2.1
-workflows:
-    hello:
-        jobs:
-            - hello
+setup: true
 
+jobs:
+  setup:
+    steps:
+      - checkout
+      - run:
+          name: hello
+          command: |
+            #!/usr/bin/env sh
+            set -eu
+            echo 'Hello'
