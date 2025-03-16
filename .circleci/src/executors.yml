@@ -3,6 +3,5 @@
 #
 executors:
   ruby:
-    working_directory: /rails-app/
     docker:
       - image: cimg/ruby:3.4.2
