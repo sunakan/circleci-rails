@@ -16,13 +16,13 @@ jobs:
             echo 'Hello: cimg/base:current'
             uname -a
             whoami
-            echo "make: $(make -v) || echo 'makeが無い'
-            echo "node: $(node -v) || echo 'nodeが無い'
-            echo "ruby: $(ruby -v) || echo 'rubyが無い'
-            echo "aws: $(aws --version) || echo 'awsが無い'
-            echo "jq: $(jq --version) || echo 'jqが無い'
-            echo "yq: $(yq --version) || echo 'yqが無い'
-            echo "circleci: $(circleci version) || echo 'circleciが無い'
+            echo "make: $(make -v)" || echo 'makeが無い'
+            echo "node: $(node -v)" || echo 'nodeが無い'
+            echo "ruby: $(ruby -v)" || echo 'rubyが無い'
+            echo "aws: $(aws --version)" || echo 'awsが無い'
+            echo "jq: $(jq --version)" || echo 'jqが無い'
+            echo "yq: $(yq --version)" || echo 'yqが無い'
+            echo "circleci: $(circleci version)" || echo 'circleciが無い'
 
   container-alpine:
     docker:
@@ -38,13 +38,13 @@ jobs:
             echo 'Hello: alpine:latest'
             uname -a
             whoami
-            echo "make: $(make -v) || echo 'makeが無い'
-            echo "node: $(node -v) || echo 'nodeが無い'
-            echo "ruby: $(ruby -v) || echo 'rubyが無い'
-            echo "aws: $(aws --version) || echo 'awsが無い'
-            echo "jq: $(jq --version) || echo 'jqが無い'
-            echo "yq: $(yq --version) || echo 'yqが無い'
-            echo "circleci: $(circleci version) || echo 'circleciが無い'
+            echo "make: $(make -v)" || echo 'makeが無い'
+            echo "node: $(node -v)" || echo 'nodeが無い'
+            echo "ruby: $(ruby -v)" || echo 'rubyが無い'
+            echo "aws: $(aws --version)" || echo 'awsが無い'
+            echo "jq: $(jq --version)" || echo 'jqが無い'
+            echo "yq: $(yq --version)" || echo 'yqが無い'
+            echo "circleci: $(circleci version)" || echo 'circleciが無い'
 
   container-my-img:
     docker:
@@ -60,13 +60,13 @@ jobs:
             echo 'Hello: ghcr.io/sunakan/circleci-rails-ci:latest'
             uname -a
             whoami
-            echo "make: $(make -v) || echo 'makeが無い'
-            echo "node: $(node -v) || echo 'nodeが無い'
-            echo "ruby: $(ruby -v) || echo 'rubyが無い'
-            echo "aws: $(aws --version) || echo 'awsが無い'
-            echo "jq: $(jq --version) || echo 'jqが無い'
-            echo "yq: $(yq --version) || echo 'yqが無い'
-            echo "circleci: $(circleci version) || echo 'circleciが無い'
+            echo "make: $(make -v)" || echo 'makeが無い'
+            echo "node: $(node -v)" || echo 'nodeが無い'
+            echo "ruby: $(ruby -v)" || echo 'rubyが無い'
+            echo "aws: $(aws --version)" || echo 'awsが無い'
+            echo "jq: $(jq --version)" || echo 'jqが無い'
+            echo "yq: $(yq --version)" || echo 'yqが無い'
+            echo "circleci: $(circleci version)" || echo 'circleciが無い'
 
   machine-x86:
     machine:
@@ -82,13 +82,13 @@ jobs:
             echo 'Hello: ubuntu-2404:current'
             uname -a
             whoami
-            echo "make: $(make -v) || echo 'makeが無い'
-            echo "node: $(node -v) || echo 'nodeが無い'
-            echo "ruby: $(ruby -v) || echo 'rubyが無い'
-            echo "aws: $(aws --version) || echo 'awsが無い'
-            echo "jq: $(jq --version) || echo 'jqが無い'
-            echo "yq: $(yq --version) || echo 'yqが無い'
-            echo "circleci: $(circleci version) || echo 'circleciが無い'
+            echo "make: $(make -v)" || echo 'makeが無い'
+            echo "node: $(node -v)" || echo 'nodeが無い'
+            echo "ruby: $(ruby -v)" || echo 'rubyが無い'
+            echo "aws: $(aws --version)" || echo 'awsが無い'
+            echo "jq: $(jq --version)" || echo 'jqが無い'
+            echo "yq: $(yq --version)" || echo 'yqが無い'
+            echo "circleci: $(circleci version)" || echo 'circleciが無い'
 
   machine-arm:
     machine:
@@ -104,13 +104,13 @@ jobs:
             echo 'Hello: ubuntu-2404:current'
             uname -a
             whoami
-            echo "make: $(make -v) || echo 'makeが無い'
-            echo "node: $(node -v) || echo 'nodeが無い'
-            echo "ruby: $(ruby -v) || echo 'rubyが無い'
-            echo "aws: $(aws --version) || echo 'awsが無い'
-            echo "jq: $(jq --version) || echo 'jqが無い'
-            echo "yq: $(yq --version) || echo 'yqが無い'
-            echo "circleci: $(circleci version) || echo 'circleciが無い'
+            echo "make: $(make -v)" || echo 'makeが無い'
+            echo "node: $(node -v)" || echo 'nodeが無い'
+            echo "ruby: $(ruby -v)" || echo 'rubyが無い'
+            echo "aws: $(aws --version)" || echo 'awsが無い'
+            echo "jq: $(jq --version)" || echo 'jqが無い'
+            echo "yq: $(yq --version)" || echo 'yqが無い'
+            echo "circleci: $(circleci version)" || echo 'circleciが無い'
 
 workflows:
   my-workflow:
