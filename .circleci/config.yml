@@ -11,7 +11,9 @@ orbs:
 #
 jobs:
   setup:
-    executor: continuation/default
+    docker:
+      image: circleci/circleci-cli:alpine
+    resource_class: small
     steps:
       - checkout
       - run:
