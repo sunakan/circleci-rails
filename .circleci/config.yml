@@ -17,21 +17,19 @@ jobs:
             uname -a
             whoami
             echo '---makeの有無'
-            make -v
+            make -v || echo 'makeが無い'
             echo '---nodeの有無'
-            node -v
+            node -v || echo 'nodeが無い'
             echo '---rubyの有無'
-            ruby -v
+            ruby -v || echo 'rubyが無い'
             echo '---aws cliの有無'
-            aws -v
-            echo '---curlの有無'
-            curl -v
+            aws --version || echo 'awsが無い'
             echo '---jqの有無'
-            jq -v
+            jq -v || echo 'jqが無い'
             echo '---yqの有無'
-            yq -v
+            yq -v || echo 'yqが無い'
             echo '---circleciの有無'
-            circleci -h
+            circleci -h || echo 'circleciが無い'
             echo 'DONE'
 
   container-alpine:
@@ -49,21 +47,19 @@ jobs:
             uname -a
             whoami
             echo '---makeの有無'
-            make -v
+            make -v || echo 'makeが無い'
             echo '---nodeの有無'
-            node -v
+            node -v || echo 'nodeが無い'
             echo '---rubyの有無'
-            ruby -v
+            ruby -v || echo 'rubyが無い'
             echo '---aws cliの有無'
-            aws -v
-            echo '---curlの有無'
-            curl -v
+            aws --version || echo 'awsが無い'
             echo '---jqの有無'
-            jq -v
+            jq -v || echo 'jqが無い'
             echo '---yqの有無'
-            yq -v
+            yq -v || echo 'yqが無い'
             echo '---circleciの有無'
-            circleci -h
+            circleci -h || echo 'circleciが無い'
             echo 'DONE'
 
   container-my-img:
@@ -81,21 +77,19 @@ jobs:
             uname -a
             whoami
             echo '---makeの有無'
-            make -v
+            make -v || echo 'makeが無い'
             echo '---nodeの有無'
-            node -v
+            node -v || echo 'nodeが無い'
             echo '---rubyの有無'
-            ruby -v
+            ruby -v || echo 'rubyが無い'
             echo '---aws cliの有無'
-            aws -v
-            echo '---curlの有無'
-            curl -v
+            aws --version || echo 'awsが無い'
             echo '---jqの有無'
-            jq -v
+            jq -v || echo 'jqが無い'
             echo '---yqの有無'
-            yq -v
+            yq -v || echo 'yqが無い'
             echo '---circleciの有無'
-            circleci -h
+            circleci -h || echo 'circleciが無い'
             echo 'DONE'
 
   machine-x86:
@@ -103,7 +97,6 @@ jobs:
       image: ubuntu-2404:current
     resource_class: medium
     steps:
-      - checkout
       - run:
           name: hello
           command: |
@@ -114,21 +107,19 @@ jobs:
             uname -a
             whoami
             echo '---makeの有無'
-            make -v
+            make -v || echo 'makeが無い'
             echo '---nodeの有無'
-            node -v
+            node -v || echo 'nodeが無い'
             echo '---rubyの有無'
-            ruby -v
+            ruby -v || echo 'rubyが無い'
             echo '---aws cliの有無'
-            aws -v
-            echo '---curlの有無'
-            curl -v
+            aws --version || echo 'awsが無い'
             echo '---jqの有無'
-            jq -v
+            jq -v || echo 'jqが無い'
             echo '---yqの有無'
-            yq -v
+            yq -v || echo 'yqが無い'
             echo '---circleciの有無'
-            circleci -h
+            circleci -h || echo 'circleciが無い'
             echo 'DONE'
 
   machine-arm:
@@ -146,21 +137,19 @@ jobs:
             uname -a
             whoami
             echo '---makeの有無'
-            make -v
+            make -v || echo 'makeが無い'
             echo '---nodeの有無'
-            node -v
+            node -v || echo 'nodeが無い'
             echo '---rubyの有無'
-            ruby -v
+            ruby -v || echo 'rubyが無い'
             echo '---aws cliの有無'
-            aws -v
-            echo '---curlの有無'
-            curl -v
+            aws --version || echo 'awsが無い'
             echo '---jqの有無'
-            jq -v
+            jq -v || echo 'jqが無い'
             echo '---yqの有無'
-            yq -v
+            yq -v || echo 'yqが無い'
             echo '---circleciの有無'
-            circleci -h
+            circleci -h || echo 'circleciが無い'
             echo 'DONE'
 
 workflows:
