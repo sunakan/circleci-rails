@@ -3,6 +3,6 @@
 #
 resource_class: arm.medium
 executor:
-  name: ruby
+  name: my-ruby
 steps:
   - hello
