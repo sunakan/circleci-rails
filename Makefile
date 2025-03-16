@@ -6,6 +6,14 @@ build-and-push-image: ## CI用 Docker imageをビルド & Push
 gen-ci: ## CircleCI用 configをgenerate
 	@cd .circleci/ && make gen-ci
 
+.PHONY: test-viewtest-tag-only
+test-viewtest-tag-only: ## with_viewtestタグがついているRspecを実行
+	bundle exec rspec --tag viewtest
+
+.PHONY: test-without-viewtest
+test-without-viewtest: ## viewtestタグがついていないRspecを実行
+	bundle exec rspec --tag ~viewtest
+
 ################################################################################
 # Utility-Command help
 ################################################################################
