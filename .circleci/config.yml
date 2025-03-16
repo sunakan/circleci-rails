@@ -22,7 +22,15 @@ jobs:
             echo "pwd=$(pwd)"
             uname -a
             whoami
-            echo "circleci: $(circleci version)" || echo 'circleciが無い'
+      - run:
+          name: circleciコマンド確認
+          command: |
+            #!/usr/bin/env sh
+            set -eu
+            echo '=========================='
+            circleci version
+            echo '=========================='
+            circleci --help
       - run:
           name: config生成
           command: cd .circleci && bin/generate-config.sh
