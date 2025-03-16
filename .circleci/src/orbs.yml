@@ -1,0 +1,4 @@
+orbs:
+  # ruby
+  # https://circleci.com/developer/orbs/orb/sue445/ruby-orbs
+  orb-ruby: sue445/ruby-orbs@1.6.2

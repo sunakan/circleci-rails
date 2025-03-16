@@ -3,6 +3,5 @@
 #
 description: bundle install
 steps:
-  - run:
-      name: bundle install
-      command: bundle install
+  - orb-ruby/bundle-install:
+    cache_key_prefix: bundle-v1
