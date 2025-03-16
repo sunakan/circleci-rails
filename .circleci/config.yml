@@ -11,7 +11,6 @@ jobs:
           name: hello
           command: |
             #!/usr/bin/env sh
-            set -eu
             echo "pwd=$(pwd)"
             ls -al
             echo 'Hello: cimg/base:current'
@@ -33,6 +32,7 @@ jobs:
             yq -v
             echo '---circleciの有無'
             circleci -h
+            echo 'DONE'
 
   container-alpine:
     docker:
@@ -43,7 +43,6 @@ jobs:
           name: hello
           command: |
             #!/usr/bin/env sh
-            set -eu
             echo "pwd=$(pwd)"
             ls -al
             echo 'Hello: alpine:latest'
@@ -65,6 +64,7 @@ jobs:
             yq -v
             echo '---circleciの有無'
             circleci -h
+            echo 'DONE'
 
   container-my-img:
     docker:
@@ -75,7 +75,6 @@ jobs:
           name: hello
           command: |
             #!/usr/bin/env sh
-            set -eu
             echo "pwd=$(pwd)"
             ls -al
             echo 'Hello: ghcr.io/sunakan/circleci-rails-ci:latest'
@@ -97,8 +96,9 @@ jobs:
             yq -v
             echo '---circleciの有無'
             circleci -h
+            echo 'DONE'
 
-  machine-01:
+  machine-x86:
     machine:
       image: ubuntu-2404:current
     resource_class: medium
@@ -108,10 +108,9 @@ jobs:
           name: hello
           command: |
             #!/usr/bin/env sh
-            set -eu
             echo "pwd=$(pwd)"
             ls -al
-            echo 'Hello: ubuntu-2204:2024.11.1'
+            echo 'Hello: ubuntu-2404:current'
             uname -a
             whoami
             echo '---makeの有無'
@@ -130,8 +129,9 @@ jobs:
             yq -v
             echo '---circleciの有無'
             circleci -h
+            echo 'DONE'
 
-  machine-02:
+  machine-arm:
     machine:
       image: ubuntu-2404:current
     resource_class: arm.medium
@@ -140,10 +140,9 @@ jobs:
           name: hello
           command: |
             #!/usr/bin/env sh
-            set -eu
             echo "pwd=$(pwd)"
             ls -al
-            echo 'Hello: ubuntu-2204:2024.11.1'
+            echo 'Hello: ubuntu-2404:current'
             uname -a
             whoami
             echo '---makeの有無'
@@ -162,6 +161,7 @@ jobs:
             yq -v
             echo '---circleciの有無'
             circleci -h
+            echo 'DONE'
 
 workflows:
   my-workflow:
