@@ -1,6 +1,11 @@
 #
 # Executor
 #
+references:
+  ghcr_auth: &ghcr_auth
+    username: $GHCR_PULL_USER
+    password: $GHCR_PULL_TOKEN
+
 executors:
   ruby:
     docker:
@@ -10,5 +15,10 @@ executors:
     docker:
       - image: ghcr.io/sunakan/circleci-rails-dev:latest
         auth:
-          username: $GHCR_PULL_USER
-          password: $GHCR_PULL_TOKEN
+          <<: *ghcr_auth
+      - image: ghcr.io/sunakan/circleci-rails-mysql:latest
+        auth:
+          <<: *ghcr_auth
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          TZ: 'Asia/Tokyo'
