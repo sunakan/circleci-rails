@@ -17,6 +17,22 @@ jobs:
             echo 'Hello: cimg/base:current'
             uname -a
             whoami
+            echo '---makeの有無'
+            make -v
+            echo '---nodeの有無'
+            node -v
+            echo '---rubyの有無'
+            ruby -v
+            echo '---aws cliの有無'
+            aws -v
+            echo '---curlの有無'
+            curl -v
+            echo '---jqの有無'
+            jq -v
+            echo '---yqの有無'
+            yq -v
+            echo '---circleciの有無'
+            circleci -h
 
   container-alpine:
     docker:
@@ -33,6 +49,22 @@ jobs:
             echo 'Hello: alpine:latest'
             uname -a
             whoami
+            echo '---makeの有無'
+            make -v
+            echo '---nodeの有無'
+            node -v
+            echo '---rubyの有無'
+            ruby -v
+            echo '---aws cliの有無'
+            aws -v
+            echo '---curlの有無'
+            curl -v
+            echo '---jqの有無'
+            jq -v
+            echo '---yqの有無'
+            yq -v
+            echo '---circleciの有無'
+            circleci -h
 
   container-my-img:
     docker:
@@ -49,6 +81,22 @@ jobs:
             echo 'Hello: ghcr.io/sunakan/circleci-rails-ci:latest'
             uname -a
             whoami
+            echo '---makeの有無'
+            make -v
+            echo '---nodeの有無'
+            node -v
+            echo '---rubyの有無'
+            ruby -v
+            echo '---aws cliの有無'
+            aws -v
+            echo '---curlの有無'
+            curl -v
+            echo '---jqの有無'
+            jq -v
+            echo '---yqの有無'
+            yq -v
+            echo '---circleciの有無'
+            circleci -h
 
   machine-01:
     machine:
@@ -66,6 +114,22 @@ jobs:
             echo 'Hello: ubuntu-2204:2024.11.1'
             uname -a
             whoami
+            echo '---makeの有無'
+            make -v
+            echo '---nodeの有無'
+            node -v
+            echo '---rubyの有無'
+            ruby -v
+            echo '---aws cliの有無'
+            aws -v
+            echo '---curlの有無'
+            curl -v
+            echo '---jqの有無'
+            jq -v
+            echo '---yqの有無'
+            yq -v
+            echo '---circleciの有無'
+            circleci -h
 
   machine-02:
     machine:
@@ -82,6 +146,22 @@ jobs:
             echo 'Hello: ubuntu-2204:2024.11.1'
             uname -a
             whoami
+            echo '---makeの有無'
+            make -v
+            echo '---nodeの有無'
+            node -v
+            echo '---rubyの有無'
+            ruby -v
+            echo '---aws cliの有無'
+            aws -v
+            echo '---curlの有無'
+            curl -v
+            echo '---jqの有無'
+            jq -v
+            echo '---yqの有無'
+            yq -v
+            echo '---circleciの有無'
+            circleci -h
 
 workflows:
   my-workflow:

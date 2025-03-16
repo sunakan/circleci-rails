@@ -70,3 +70,8 @@ Resource class machine for small, image ubuntu-2204:2024.11.1 is not available f
 | docker  | Arm   | arm.large | 4 | 16  | 26             | 615      |
 | machine | x86   | large     | 4 | 15  | 20             | 750      |
 | machine | Arm   | arm.large | 4 | 16  | 20             | 800      |
+
+### Machine(Ubuntu)に最初から入っているソフトウェアは多い
+
+- https://discuss.circleci.com/t/ubuntu-20-04-22-04-24-04-q4-edge-release/52429
+  - yq,jq,git,node,ruby,aws cli等
