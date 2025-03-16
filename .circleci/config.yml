@@ -11,7 +11,13 @@ orbs:
 #
 # Dynamic Configurationを利用
 #
-# continuation/continueはcurlが必要なため、alpineなどのdocker imageだとインストールする必要がある
+# executorに、docker(circleci/circleci-cli)を採用していない理由
+# - alpineだと、curlを別途インストールする必要がある(apk updateなどが必要になる)
+# - latestだと、curlは入っているが、イメージサイズが500MB以上あり、キャッシュが効いてないと `docker pull` で、で5秒以上かかる可能性がある
+# そのため、docker版を採用していない
+# Spin up environment(実行環境用意)が高速であるLinux VM(machine)を採用し、circleciコマンドを公式Orbを利用してインストール
+# resource_classの下限がmediumなので、docker(small)と比較してcredit/秒は2倍になるが実行時間は十分短いため許容
+#
 jobs:
   setup:
     machine:
@@ -30,15 +36,6 @@ jobs:
             uname -a
             whoami
       - orb-cli/install
-      - run:
-          name: circleci-cliコマンドバージョン確認
-          command: |
-            #!/usr/bin/env sh
-            set -eu
-            echo '=========================='
-            circleci version
-            echo '=========================='
-            circleci --help
       - run:
           name: config生成
           command: cd .circleci && bin/generate-config.sh
