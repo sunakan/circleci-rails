@@ -5,6 +5,7 @@ description: Hello
 steps:
   - run:
       name: Hello
+      no_output_timeout: 2m
       command: |
         #!/usr/bin/env sh
         set -eu
