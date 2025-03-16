@@ -8,4 +8,6 @@ steps:
       command: |
         #!/usr/bin/env sh
         set -eu
+        echo "pwd=$(pwd)"
+        echo "whoami=$(whoami)"
         echo 'Hello'
