@@ -1,24 +1,72 @@
-# README
+# CircleCI
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### validationを使う
 
-Things you may want to cover:
+circleciコマンドが必要
 
-* Ruby version
+```shell
+CIRCLECI_CLI_TELEMETRY_OPTOUT=true && circleci --skip-update-check config validate config.yml
+```
 
-* System dependencies
 
-* Configuration
+### workflowは必須
 
-* Database creation
+- jobまでだと動かない & 怒られる
+- 無いと以下のように怒られる
 
-* Database initialization
+```shell
+Error: config compilation contains errors: config compilation contains errors:
+        - There are no workflows or build jobs in the config.
+```
 
-* How to run the test suite
+### machineイメージのresource_classの下限はmedium
 
-* Services (job queues, cache servers, search engines, etc.)
+- サポートされていない `small` で指定すると、以下のように怒られる
 
-* Deployment instructions
+```
+Resource class machine for small, image ubuntu-2204:2024.11.1 is not available for your project, or is not a valid resource class. This message will often appear if the pricing plan for this project does not support machine use.
+```
 
-* ...
+- https://circleci.com/docs/configuration-reference/#linuxvm-execution-environment
+- https://circleci.com/pricing/price-list/
+
+- メモリ観点で1番コスパが良いのは、MachineのArm
+- Machineを選択する方が「Spin up environment」が短い
+  - dockerだとpullするのに時間を食ったりする
+  - dockerを利用する場合も、cimgはキャッシュヒット率が高いらしい
+
+**Small**
+
+| type    | Archi | Class | vCPUs | RAM | Cost          | RAM/Cost |
+|:--------|:------|:------|:------|:----|:--------------|:---------|
+| docker  | x86   | small | 1     | 2GB | 5 credits/min | 500MB    |
+| docker  | Arm   | 無い  | - | -   | -             | -        |
+| machine | x86   | 無い  | - | -   | -             | -        |
+| machine | Arm   | 無い  | - | -   | -             | -        |
+
+**Medium**
+
+| type    | Archi | Class      | vCPUs | RAM | Cost           | RAM/Cost |
+|:--------|:------|:-----------|:------|:----|:---------------|:---------|
+| docker  | x86   | medium     | 2     | 4GB | 10 credits/min | 400MB    |
+| docker  | Arm   | arm.medium | 2 | 8   | 13             | 615      |
+| machine | x86   | medium     | 2 | 7.5 | 10             | 750      |
+| machine | Arm   | arm.medium | 2 | 8   | 10             | 800      |
+
+**Medium+**
+
+| type    | Archi | Class   | vCPUs | RAM | Cost           | RAM/Cost |
+|:--------|:------|:--------|:------|:----|:---------------|:---------|
+| docker  | x86   | medium+ | 3     | 6GB | 15 credits/min | 400MB    |
+| docker  | Arm   | 無い      | - | -   | -              |          |
+| machine | x86   | 無い      | - | -   | -              |          |
+| machine | Arm   | 無い      | - | -   | -              |          |
+
+**Large+**
+
+| type    | Archi | Class     | vCPUs | RAM | Cost           | RAM/Cost |
+|:--------|:------|:----------|:------|:----|:---------------|:---------|
+| docker  | x86   | large     | 4     | 8GB | 20 credits/min | 400MB    |
+| docker  | Arm   | arm.large | 4 | 16  | 26             | 615      |
+| machine | x86   | large     | 4 | 15  | 20             | 750      |
+| machine | Arm   | arm.large | 4 | 16  | 20             | 800      |
