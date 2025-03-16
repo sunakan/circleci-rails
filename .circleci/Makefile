@@ -12,6 +12,11 @@ gen-ci: ## CircleCI用 configをgenerate
 	$(eval IMAGE_REPO := ghcr.io/sunakan/circleci-rails-ci)
 	@docker run --rm -it --mount type=bind,source=${PWD},target=/home/ci/ci-tools/ ${IMAGE_REPO}:latest bin/generate-config.sh
 
+.PHONY: validate-ci-config
+validate-ci-config: ## CircleCI用 configをvalidation
+	$(eval IMAGE_REPO := ghcr.io/sunakan/circleci-rails-ci)
+	@docker run --rm -it --mount type=bind,source=${PWD},target=/home/ci/ci-tools/ ${IMAGE_REPO}:latest bin/validate-ci-config.sh
+
 ################################################################################
 # Utility-Command help
 ################################################################################
