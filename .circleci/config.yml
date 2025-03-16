@@ -12,10 +12,11 @@ jobs:
           command: |
             #!/usr/bin/env sh
             set -eu
-            echo "pwd=$(PWD)"
+            echo "pwd=$(pwd)"
             ls -al
             echo 'Hello: cimg/base:current'
             uname -a
+            whoami
 
   container-alpine:
     docker:
@@ -27,10 +28,11 @@ jobs:
           command: |
             #!/usr/bin/env sh
             set -eu
-            echo "pwd=$(PWD)"
+            echo "pwd=$(pwd)"
             ls -al
             echo 'Hello: alpine:latest'
             uname -a
+            whoami
 
   container-my-img:
     docker:
@@ -42,10 +44,11 @@ jobs:
           command: |
             #!/usr/bin/env sh
             set -eu
-            echo "pwd=$(PWD)"
+            echo "pwd=$(pwd)"
             ls -al
             echo 'Hello: ghcr.io/sunakan/circleci-rails-ci:latest'
             uname -a
+            whoami
 
   machine-01:
     machine:
@@ -58,10 +61,11 @@ jobs:
           command: |
             #!/usr/bin/env sh
             set -eu
-            echo "pwd=$(PWD)"
+            echo "pwd=$(pwd)"
             ls -al
             echo 'Hello: ubuntu-2204:2024.11.1'
             uname -a
+            whoami
 
   machine-02:
     machine:
@@ -73,10 +77,11 @@ jobs:
           command: |
             #!/usr/bin/env sh
             set -eu
-            echo "pwd=$(PWD)"
+            echo "pwd=$(pwd)"
             ls -al
             echo 'Hello: ubuntu-2204:2024.11.1'
             uname -a
+            whoami
 
 workflows:
   my-workflow:
