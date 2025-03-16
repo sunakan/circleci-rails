@@ -12,7 +12,13 @@ set -euo pipefail
 # 引数
 # 1. 検証するファイルパス(default: config.yml)
 #
-readonly config_path=${1:-config.yml}
+export CIRCLECI_CLI_TELEMETRY_OPTOUT=true
+readonly DEFAULT_CONFIG='config.yml'
+readonly config_path=${1:-${DEFAULT_CONFIG}}
+
+# バージョン確認
+echo 'バージョン確認'
+circleci --version
 
 # 構文チェック
 circleci --skip-update-check config validate "${config_path}"

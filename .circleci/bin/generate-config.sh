@@ -9,7 +9,12 @@ set -euo pipefail
 #
 # circleciのconfigを作成
 #
+export CIRCLECI_CLI_TELEMETRY_OPTOUT=true
 readonly config_path='generated-config.yml'
+
+# バージョン確認
+echo 'バージョン確認'
+circleci --version
 
 # configファイルを生成
 circleci --skip-update-check config pack src/ > "${config_path}"
