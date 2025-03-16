@@ -1,0 +1,19 @@
+#
+# ブランチフィルタ用ジョブ
+#
+# ワークフロー単位で簡単に実行する/skipを決定できない(ジョブ単位なら可能)
+# Dynamic Configurationを利用したら可能ではある
+# ひとまず、Dynamic ConfigurationではRSpecを実行/skipを制御したい
+#
+# ワークフローの最初のジョブとして定義
+# このジョブに依存する形で後続のジョブを定義することで、ブランチ制御を行う
+#
+# dockerのbusyboxなど軽量イメージを利用していない理由
+# - キャッシュが効いてない場合は、5~6秒以上かかる時があり、安定して0~1秒で済むmachineタイプを選択
+resource_class: medium
+machine:
+  image: ubuntu-2204:current
+steps:
+  - run:
+      name: ブランチフィルタ用なので、このstepには意味無し
+      command: echo branch-filter

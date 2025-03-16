@@ -1,0 +1,11 @@
+#
+# CI
+#
+jobs:
+  - start-branch-filter:
+      filters:
+        branches:
+          ignore:
+            - main
+            - /deploy.*/
+  - hello

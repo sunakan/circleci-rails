@@ -1,122 +1,35 @@
 version: 2.1
 setup: true
 
+orbs:
+  continuation: circleci/continuation@1
+
+#
+# Dynamic Configurationを利用
+#
 jobs:
-  container-cimg-base:
-    docker:
-      - image: cimg/base:current
-    resource_class: small
-    steps:
-      - run:
-          name: hello
-          command: |
-            #!/usr/bin/env sh
-            echo "pwd=$(pwd)"
-            ls -al
-            echo 'Hello: cimg/base:current'
-            uname -a
-            whoami
-            echo "make: $(make -v)" || echo 'makeが無い'
-            echo "node: $(node -v)" || echo 'nodeが無い'
-            echo "ruby: $(ruby -v)" || echo 'rubyが無い'
-            echo "aws: $(aws --version)" || echo 'awsが無い'
-            echo "jq: $(jq --version)" || echo 'jqが無い'
-            echo "yq: $(yq --version)" || echo 'yqが無い'
-            echo "circleci: $(circleci version)" || echo 'circleciが無い'
-
-  container-alpine:
-    docker:
-      - image: alpine:latest
-    resource_class: small
-    steps:
-      - run:
-          name: hello
-          command: |
-            #!/usr/bin/env sh
-            echo "pwd=$(pwd)"
-            ls -al
-            echo 'Hello: alpine:latest'
-            uname -a
-            whoami
-            echo "make: $(make -v)" || echo 'makeが無い'
-            echo "node: $(node -v)" || echo 'nodeが無い'
-            echo "ruby: $(ruby -v)" || echo 'rubyが無い'
-            echo "aws: $(aws --version)" || echo 'awsが無い'
-            echo "jq: $(jq --version)" || echo 'jqが無い'
-            echo "yq: $(yq --version)" || echo 'yqが無い'
-            echo "circleci: $(circleci version)" || echo 'circleciが無い'
-
-  container-my-img:
-    docker:
-      - image: ghcr.io/sunakan/circleci-rails-ci:latest
-    resource_class: arm.medium
-    steps:
-      - run:
-          name: hello
-          command: |
-            #!/usr/bin/env sh
-            echo "pwd=$(pwd)"
-            ls -al
-            echo 'Hello: ghcr.io/sunakan/circleci-rails-ci:latest'
-            uname -a
-            whoami
-            echo "make: $(make -v)" || echo 'makeが無い'
-            echo "node: $(node -v)" || echo 'nodeが無い'
-            echo "ruby: $(ruby -v)" || echo 'rubyが無い'
-            echo "aws: $(aws --version)" || echo 'awsが無い'
-            echo "jq: $(jq --version)" || echo 'jqが無い'
-            echo "yq: $(yq --version)" || echo 'yqが無い'
-            echo "circleci: $(circleci version)" || echo 'circleciが無い'
-
-  machine-x86:
-    machine:
-      image: ubuntu-2404:current
-    resource_class: medium
-    steps:
-      - run:
-          name: hello
-          command: |
-            #!/usr/bin/env sh
-            echo "pwd=$(pwd)"
-            ls -al
-            echo 'Hello: ubuntu-2404:current'
-            uname -a
-            whoami
-            echo "make: $(make -v)" || echo 'makeが無い'
-            echo "node: $(node -v)" || echo 'nodeが無い'
-            echo "ruby: $(ruby -v)" || echo 'rubyが無い'
-            echo "aws: $(aws --version)" || echo 'awsが無い'
-            echo "jq: $(jq --version)" || echo 'jqが無い'
-            echo "yq: $(yq --version)" || echo 'yqが無い'
-            echo "circleci: $(circleci version)" || echo 'circleciが無い'
-
-  machine-arm:
+  setup:
     machine:
       image: ubuntu-2404:current
     resource_class: arm.medium
     steps:
+      - checkout
       - run:
-          name: hello
+          name: debug
           command: |
             #!/usr/bin/env sh
+            eset -eu
             echo "pwd=$(pwd)"
-            ls -al
-            echo 'Hello: ubuntu-2404:current'
             uname -a
             whoami
-            echo "make: $(make -v)" || echo 'makeが無い'
-            echo "node: $(node -v)" || echo 'nodeが無い'
-            echo "ruby: $(ruby -v)" || echo 'rubyが無い'
-            echo "aws: $(aws --version)" || echo 'awsが無い'
-            echo "jq: $(jq --version)" || echo 'jqが無い'
-            echo "yq: $(yq --version)" || echo 'yqが無い'
             echo "circleci: $(circleci version)" || echo 'circleciが無い'
-
+      - run:
+          name: config生成
+          command: cd .circleci && bin/generate-config.sh
+      - run:
+          name: 確認
+          command: cat bin/generate-config.sh
 workflows:
-  my-workflow:
+  dynamic-config:
     jobs:
-      - container-cimg-base
-      - container-alpine
-      - container-my-img
-      - machine-x86
-      - machine-arm
+      - setup
