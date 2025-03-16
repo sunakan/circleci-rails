@@ -13,6 +13,8 @@ jobs:
   setup:
     docker:
       - image: circleci/circleci-cli:alpine
+    environment:
+      CIRCLECI_CLI_TELEMETRY_OPTOUT: 'true'
     resource_class: small
     steps:
       - checkout
@@ -29,7 +31,6 @@ jobs:
           command: |
             #!/usr/bin/env sh
             set -eu
-            echo ${CIRCLECI_CLI_TELEMETRY_OPTOUT}
             echo '=========================='
             circleci version
             echo '=========================='
