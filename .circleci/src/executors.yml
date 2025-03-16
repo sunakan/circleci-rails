@@ -13,9 +13,14 @@ executors:
   my-ruby:
     resource_class: arm.medium
     docker:
-      - image: ghcr.io/sunakan/circleci-rails-dev:latest
+      - &my_ruby
+        image: ghcr.io/sunakan/circleci-rails-dev:latest
         auth:
           <<: *ghcr_auth
+  my-ruby-with-mysql:
+    resource_class: arm.medium
+    docker:
+      - <<: *my_ruby
       - image: ghcr.io/sunakan/circleci-rails-mysql:latest
         auth:
           <<: *ghcr_auth

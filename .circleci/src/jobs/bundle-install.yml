@@ -1,0 +1,9 @@
+#
+# bundle install
+#
+resource_class: arm.medium
+executor:
+  name: my-ruby
+steps:
+  - checkout
+  - bundle-install

@@ -1,0 +1,8 @@
+#
+# bundle install
+#
+description: bundle install
+steps:
+  - run:
+      name: bundle install
+      command: bundle install

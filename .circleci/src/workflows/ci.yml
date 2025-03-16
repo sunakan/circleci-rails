@@ -6,8 +6,10 @@ jobs:
       filters:
         branches:
           ignore:
-            - main
             - /deploy.*/
   - hello:
+      requires:
+        - start-branch-filter
+  - bundle-install:
       requires:
         - start-branch-filter
