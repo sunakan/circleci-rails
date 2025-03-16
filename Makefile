@@ -1,7 +1,3 @@
-.PHONY: build-and-push-image
-build-and-push-image: ## CI用 Docker imageをビルド & Push
-	@cd .circleci/ && make build-and-push-image
-
 .PHONY: gen-ci
 gen-ci: ## CircleCI用 configをgenerate
 	@cd .circleci/ && make gen-ci

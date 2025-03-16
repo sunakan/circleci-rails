@@ -1,21 +1,10 @@
-.PHONY: build-and-push-image
-build-and-push-image: ## CI用 Docker imageをビルド & Push
-	$(eval IMAGE_REPO := ghcr.io/sunakan/circleci-rails-ci)
-	$(eval IMAGE_TAG := $(shell git rev-list -1 HEAD -- Dockerfile))
-	docker build . --tag "${IMAGE_REPO}:latest"
-	docker tag "${IMAGE_REPO}:latest" "${IMAGE_REPO}:${IMAGE_TAG}"
-	docker push "${IMAGE_REPO}:latest"
-	docker push "${IMAGE_REPO}:${IMAGE_TAG}"
-
 .PHONY: gen-ci
 gen-ci: ## CircleCI用 configをgenerate
-	$(eval IMAGE_REPO := ghcr.io/sunakan/circleci-rails-ci)
-	@docker run --rm -it --mount type=bind,source=${PWD},target=/home/ci/ci-tools/ ${IMAGE_REPO}:latest bin/generate-config.sh
+	@docker run --rm -it --platform linux/amd64 --mount type=bind,source=${PWD},target=/home/circleci/project/ --entrypoint '' circleci/circleci-cli:latest bin/generate-config.sh
 
 .PHONY: validate-ci-config
 validate-ci-config: ## CircleCI用 configをvalidation
-	$(eval IMAGE_REPO := ghcr.io/sunakan/circleci-rails-ci)
-	@docker run --rm -it --mount type=bind,source=${PWD},target=/home/ci/ci-tools/ ${IMAGE_REPO}:latest bin/validate-ci-config.sh
+	@docker run --rm -it --platform linux/amd64 --mount type=bind,source=${PWD},target=/home/circleci/project/ --entrypoint '' circleci/circleci-cli:latest bin/validate-ci-config.sh
 
 ################################################################################
 # Utility-Command help
