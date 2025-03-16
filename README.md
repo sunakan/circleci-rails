@@ -73,5 +73,18 @@ Resource class machine for small, image ubuntu-2204:2024.11.1 is not available f
 
 ### Machine(Ubuntu)に最初から入っているソフトウェアは多い
 
+簡単な処理をしたい時はMachine(Ubuntu)を使った方が速度向上につながる
+
 - https://discuss.circleci.com/t/ubuntu-20-04-22-04-24-04-q4-edge-release/52429
-  - yq,jq,git,node,ruby,aws cli等
+
+Machine(ubuntu-2404:current)で以下を確認
+
+```
+make: GNU Make 4.3
+node: v22.11.0
+ruby: ruby 3.3.4 (2024-07-09 revision be1089c8ec) [aarch64-linux]
+aws: aws-cli/2.22.3 Python/3.12.6 Linux/6.8.0-1018-aws exe/aarch64.ubuntu.24
+jq: jq-1.7
+yq: yq (https://github.com/mikefarah/yq/) version v4.44.5
+circleci: Build Agent version: 1.0.271228-661bc540
+```
