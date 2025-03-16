@@ -25,10 +25,11 @@ jobs:
             uname -a
             whoami
       - run:
-          name: circleciコマンド確認
+          name: circleci-cliコマンドバージョン確認
           command: |
             #!/usr/bin/env sh
             set -eu
+            env | grep CIRCLECI_CLI_TELEMETRY_OPTOUT
             echo '=========================='
             circleci version
             echo '=========================='
