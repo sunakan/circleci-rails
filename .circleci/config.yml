@@ -15,6 +15,8 @@ jobs:
             echo "pwd=$(PWD)"
             ls -al
             echo 'Hello: cimg/base:current'
+            uname -a
+
   container-alpine:
     docker:
       - image: alpine:latest
@@ -28,6 +30,8 @@ jobs:
             echo "pwd=$(PWD)"
             ls -al
             echo 'Hello: alpine:latest'
+            uname -a
+
   container-my-img:
     docker:
       - image: ghcr.io/sunakan/circleci-rails-ci:latest
@@ -41,10 +45,12 @@ jobs:
             echo "pwd=$(PWD)"
             ls -al
             echo 'Hello: ghcr.io/sunakan/circleci-rails-ci:latest'
+            uname -a
+
   machine-01:
     machine:
       image: ubuntu-2204:2024.11.1
-    resource_class: small
+    resource_class: medium
     steps:
       - checkout
       - run:
@@ -55,6 +61,23 @@ jobs:
             echo "pwd=$(PWD)"
             ls -al
             echo 'Hello: ubuntu-2204:2024.11.1'
+            uname -a
+
+  machine-02:
+    machine:
+      image: ubuntu-2204:2024.11.1
+    resource_class: arm.medium
+    steps:
+      - checkout
+      - run:
+          name: hello
+          command: |
+            #!/usr/bin/env sh
+            set -eu
+            echo "pwd=$(PWD)"
+            ls -al
+            echo 'Hello: ubuntu-2204:2024.11.1'
+            uname -a
 
 workflows:
   my-workflow:
@@ -63,3 +86,4 @@ workflows:
       - container-alpine
       - container-my-img
       - machine-01
+      - machine-02
