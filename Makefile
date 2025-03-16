@@ -1,3 +1,15 @@
+IMAGE_REPO = ghcr.io/sunakan/circleci-rails-dev
+
+.PHONY: build-and-push-docker-dev
+build-and-push-docker-dev: ## build docker image and push
+	$(eval DATE := $(shell date +%Y-%m-%d))
+	$(eval COMMIT_ID := $(shell git rev-list -1 HEAD -- Dockerfile | cut -c 1-12))
+	$(eval IMAGE_TAG := ${DATE}_${COMMIT_ID})
+	@docker build . -f Dockerfile.dev --tag "${IMAGE_REPO}:latest"
+	@docker tag "${IMAGE_REPO}:latest" "${IMAGE_REPO}:${IMAGE_TAG}"
+	@docker push "${IMAGE_REPO}:latest"
+	@docker push "${IMAGE_REPO}:${IMAGE_TAG}"
+
 .PHONY: gen-ci
 gen-ci: ## CircleCI用 configをgenerate
 	@cd .circleci/ && make gen-ci
