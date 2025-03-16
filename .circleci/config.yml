@@ -55,3 +55,11 @@ jobs:
             echo "pwd=$(PWD)"
             ls -al
             echo 'Hello: ubuntu-2204:2024.11.1'
+
+workflows:
+  my-workflow:
+    jobs:
+      - container-cimg-base
+      - container-alpine
+      - container-my-img
+      - machine-01
