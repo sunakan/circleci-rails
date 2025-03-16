@@ -6,8 +6,9 @@ executors:
     docker:
       - image: cimg/ruby:3.4.2
   my-ruby:
+    resource_class: arm.medium
     docker:
       - image: ghcr.io/sunakan/circleci-rails-dev:latest
         auth:
-          username: $GHCR_PULL_USERNAME
+          username: $GHCR_PULL_USER
           password: $GHCR_PULL_TOKEN
