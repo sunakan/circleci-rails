@@ -4,4 +4,4 @@
 description: bundle install
 steps:
   - orb-ruby/bundle-install:
-    cache_key_prefix: bundle-v1
+      cache_key_prefix: bundle-v1
