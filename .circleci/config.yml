@@ -9,10 +9,11 @@ orbs:
 #
 # Dynamic Configurationを利用
 #
+# continuation/continueはcurlが必要なため、alpineなどのdocker imageだとインストールする必要がある
 jobs:
   setup:
     docker:
-      - image: circleci/circleci-cli:alpine
+      - image: circleci/circleci-cli:latest
     environment:
       CIRCLECI_CLI_TELEMETRY_OPTOUT: 'true'
     resource_class: small
