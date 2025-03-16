@@ -43,7 +43,7 @@ jobs:
             echo 'Hello: ghcr.io/sunakan/circleci-rails-ci:latest'
   machine-01:
     machine:
-      - image: ubuntu-2204:2024.11.1
+      image: ubuntu-2204:2024.11.1
     resource_class: small
     steps:
       - checkout
