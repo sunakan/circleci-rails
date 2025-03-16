@@ -2,6 +2,8 @@ version: 2.1
 setup: true
 
 orbs:
+  # continuation
+  # https://circleci.com/developer/ja/orbs/orb/circleci/continuation
   continuation: circleci/continuation@1
 
 #
@@ -9,9 +11,7 @@ orbs:
 #
 jobs:
   setup:
-    machine:
-      image: ubuntu-2404:current
-    resource_class: arm.medium
+    executor: continuation/default
     steps:
       - checkout
       - run:
