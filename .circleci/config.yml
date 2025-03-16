@@ -169,5 +169,5 @@ workflows:
       - container-cimg-base
       - container-alpine
       - container-my-img
-      - machine-01
-      - machine-02
+      - machine-x86
+      - machine-arm
