@@ -5,7 +5,8 @@ jobs:
   - start-branch-filter:
       filters:
         branches:
-          - /deploy.*/
+          only:
+            - /deploy.*/
   - hello:
       requires:
         - start-branch-filter
