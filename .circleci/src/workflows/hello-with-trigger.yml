@@ -2,4 +2,10 @@
 # Triggerから実行されても実行OK
 #
 jobs:
-  - hello
+  - start-branch-filter:
+      filters:
+        branches:
+          - /deploy.*/
+  - hello:
+      requires:
+        - start-branch-filter

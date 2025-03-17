@@ -5,4 +5,11 @@ when:
     equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
 
 jobs:
-  - hello
+  - start-branch-filter:
+      filters:
+        branches:
+          ignore:
+            - /deploy.*/
+  - hello:
+      requires:
+        - start-branch-filter
