@@ -1,0 +1,5 @@
+#
+# Triggerから実行されても実行OK
+#
+jobs:
+  - hello

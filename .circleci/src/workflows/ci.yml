@@ -1,3 +1,9 @@
+# スケジュール実行(Trigger)の時は走らないようにする
+# https://circleci.com/docs/ja/pipeline-variables/#pipeline-values
+when:
+  not:
+    equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+
 #
 # CI
 #
