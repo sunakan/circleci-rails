@@ -33,6 +33,31 @@ RSpec/DescribeClass:
   Exclude:
     - spec/sandbox/**/*
 
+# Style/Documentation
+# https://docs.rubocop.org/rubocop/cops_style.html#styledocumentation
+# classトップレベルのドキュメント
+#
+# 除外
+# db/migrate/**/*
+#   - 自動生成のため、無視する
+Style/Documentation:
+  Exclude:
+    - db/migrate/**/*
+
+# Style/DocumentationMethod
+# https://docs.rubocop.org/rubocop/cops_style.html#styledocumentationmethod
+# メソッドのドキュメント
+#
+# 除外
+# db/migrate/**/*
+#   - 自動生成のため、無視する
+Style/DocumentationMethod:
+  Exclude:
+    - db/migrate/**/*
+
+# Rails/SchemaComment
+# https://docs.rubocop.org/rubocop-rails/cops_rails.html#railsschemacomment
+
 # Style/StringHashKeys
 # https://docs.rubocop.org/rubocop/cops_style.html#stylestringhashkeys
 # HashのキーがString → Symbol
