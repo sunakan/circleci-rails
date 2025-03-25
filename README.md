@@ -1,3 +1,10 @@
+# Railsのコンテナに入る
+
+```shell
+docker compose up -d db
+make bash
+```
+
 # CircleCI
 
 ### validationを使う
