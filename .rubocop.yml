@@ -8,6 +8,19 @@ AllCops:
   NewCops: enable
   EnabledByDefault: true
 
+# RSpecRails/InferredSpecType
+# https://docs.rubocop.org/rubocop-rspec_rails/cops_rspecrails.html#rspecrailsinferredspectype
+# spec/models/xxx_spec.rb似て、 type: :model を明示的にしない
+# デフォルト: pending
+#
+# ファイルパスから、test typeを推測する機能
+# config.infer_spec_type_from_file_location!
+# が有効化されていた場合、不要みたいな話
+# この機能は非推奨、推測させず、明示的にした方がいいらしい
+# そのためrubocopはDisableが良い
+RSpecRails/InferredSpecType:
+  Enabled: false
+
 # RSpec/DescribeClass
 # https://docs.rubocop.org/rubocop-rspec/cops_rspec.html#rspecdescribeclass
 # RSpecのトップレベルはClass名を指定
