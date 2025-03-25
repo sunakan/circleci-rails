@@ -1,3 +1,7 @@
+.PHONY: bash
+bash: ## railsコンテナにbash login
+	docker compose run --rm --service-ports rails bash
+
 .PHONY: build-and-push-docker
 build-and-push-docker: ## build docker image and push
 	@make build-and-push-docker-dev
