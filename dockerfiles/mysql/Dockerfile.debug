@@ -48,13 +48,17 @@ RUN mkdir /mysql-debug/mysql-server/build/data
 # 初期化
 RUN ./bin/mysqld --user=root --initialize-insecure --datadir=/mysql-debug/mysql-server/build/data
 
-COPY ./my.cnf ./
+COPY dockerfiles/mysql/my.cnf ./
 
 # ./bin/mysqld --user=root
 # 'root'@'localhost' → 'root'@'%'
 # RUN ./bin/mysql -u root --skip-password -e "CREATE USER 'root'@'%' IDENTIFIED BY ''; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'; FLUSH PRIVILEGES; DROP USER 'root'@'localhost';"
 
-
+# -r, --sysmtem: Create a system account.
+# -s, --shell: SHELL
+# -M, --no-create-home: Do not create the user's home directory
+RUN useradd -r -s /sbin/nologin -M mysql
+RUN mkdir -p /var/log/mysql && chown -R mysql:mysql /var/log/mysql
 
 #
 # Note
