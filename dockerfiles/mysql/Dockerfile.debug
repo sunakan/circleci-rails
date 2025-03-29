@@ -1,0 +1,83 @@
+# syntax=docker/dockerfile:1
+# check=error=true
+
+# このDockrfileは開発環境用です、本番環境では使用しないでください
+
+FROM ubuntu:24.04
+
+# 必要なパッケージのインストール
+RUN apt-get update && apt-get install -y build-essential cmake wget libncurses5-dev
+# MySQLソースコードのダウンロード
+WORKDIR /mysql-debug
+
+RUN apt-get install -y git
+
+# MySQL
+# 8.4.4(2025-01-21)
+# https://dev.mysql.com/doc/relnotes/mysql/8.4/en/news-8-4-4.html
+RUN git clone --branch mysql-8.4.4 --depth 1 --single-branch https://github.com/mysql/mysql-server.git
+RUN apt-get install -y libssl-dev
+
+# 公式推奨パッケージ
+RUN apt-get install -y cmake make g++ bison libssl-dev libncurses5-dev pkg-config gdb
+RUN apt-get install -y libtirpc-dev
+
+WORKDIR /mysql-debug/mysql-server/build
+
+RUN mkdir boost
+
+# cmake
+# DOWNLOAD_BOOST: C++のBoostライブラリをDLするかどうか
+# WITH_BOOST: C++のBoostライブラリをDLする場所
+# Boostライブラリは必須で、もし有効化しない場合、既存のライブラリを探したりなんとかしようとする
+# バージョン不一致や問題が起きやすいので、基本的に有効にする
+#
+# WITH_DEBUG: MySQL固有のデバッグ機能を有効化
+# MySQLのデバッグ用オプション（例: `--debug`フラグ）が利用可能になる
+# CMAKE_BUILD_TYPE=Debug: CMakeの標準的なビルドタイプ指定
+# デバッグビルドを生成、最適化がOFF、デバッグ情報が含まれる
+#
+#
+# https://dev.mysql.com/doc/relnotes/mysql/8.3/en/news-8-3-0.html#:~:text=MySQL%20now%20bundles,.%20(Bug%20%2335805629)
+# 8.3からWITH_BOOSTやDOWNLOAD_BOOSTが削除された
+ENV OPENSSL_ROOT_DIR=/usr
+RUN cmake .. -DWITH_DEBUG=1 -DCMAKE_BUILD_TYPE=Debug
+RUN make -j8
+
+RUN mkdir /mysql-debug/mysql-server/build/data
+# 初期化
+RUN ./bin/mysqld --user=root --initialize-insecure --datadir=/mysql-debug/mysql-server/build/data
+
+COPY ./my.cnf ./
+
+# ./bin/mysqld --user=root
+# 'root'@'localhost' → 'root'@'%'
+# RUN ./bin/mysql -u root --skip-password -e "CREATE USER 'root'@'%' IDENTIFIED BY ''; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'; FLUSH PRIVILEGES; DROP USER 'root'@'localhost';"
+
+
+
+#
+# Note
+#
+# syntax=docker/dockerfile:1
+# - Dockerfileの構文バージョンを指定
+# - `docker/dockerfile:N`は、Dockerfile構文のバージョンNの最新リリースを使用を意味する
+#
+# check=error=true
+# - ビルド時のチェックが警告ではなく、エラーになる
+# - ビルド中に警告が発生するとビルドが失敗する
+#
+# BUNDLE_DEPLOYMENT
+# Bundlerのデプロイモードの有効化・無効化
+# - 1: 有効化
+#   - Gemfile.lockとGemfileの不一致をチェック。これにより、依存関係の整合性を保つ
+# - 0: 無効化(デフォルト: false)
+#   - Gemfile.lockが更新されていない場合でも、Bundlerは警告やエラーを出さずにGemをインストール可能
+#
+# BUNDLE_PATH="/usr/local/bundle"
+# - BundlerがGemをインストールするディレクトリを指定
+#
+# BUNDLE_WITHOUT="development"
+# - Bundlerが特定のグループのGemをインストールしないように指定
+# - ここでは「development」グループを指定
+#

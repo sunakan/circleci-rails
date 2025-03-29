@@ -2,6 +2,16 @@
 bash: ## railsコンテナにbash login
 	docker compose run --rm --service-ports rails bash
 
+.PHONY: db
+db: ## db起動
+	@docker compose run --rm --service-ports db ./bin/mysqld --defaults-file=./my.cnf --user=root
+.PHONY: db-init
+db-insecure: ## rootユーザーでどこからでも接続可能にする(insecure)
+	@docker compose exec db ./bin/mysql -u root --skip-password -e "CREATE USER 'root'@'%' IDENTIFIED BY ''; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'; FLUSH PRIVILEGES; DROP USER 'root'@'localhost';"
+.PHONY: db-down
+db-down: ## db down
+	@docker stop $(docker container ps --filter "ancestor=circleci-rails-db" --format="{{.ID}}")
+
 .PHONY: build-and-push-docker
 build-and-push-docker: ## build docker image and push
 	@make build-and-push-docker-dev
@@ -22,12 +32,12 @@ build-and-push-docker-dev: ## build docker image and push
 build-and-push-docker-mysql: ## build docker image and push
 	$(eval IMAGE_REPO := ghcr.io/sunakan/circleci-rails-mysql)
 	$(eval DATE := $(shell date +%Y-%m-%d))
-	$(eval COMMIT_ID := $(shell git rev-list -1 HEAD -- Dockerfile.mysql | cut -c 1-12))
+	$(eval COMMIT_ID := $(shell git rev-list -1 HEAD -- ./dockerfiles/mysql/ | cut -c 1-12))
 	$(eval IMAGE_TAG := ${DATE}_${COMMIT_ID})
-	@docker build . -f Dockerfile.mysql --tag "${IMAGE_REPO}:latest"
-	@docker tag "${IMAGE_REPO}:latest" "${IMAGE_REPO}:${IMAGE_TAG}"
-	@docker push "${IMAGE_REPO}:latest"
-	@docker push "${IMAGE_REPO}:${IMAGE_TAG}"
+	@docker build . -f dockerfiles/mysql/Dockerfile.debug --tag "${IMAGE_REPO}:latest"
+	#@docker tag "${IMAGE_REPO}:latest" "${IMAGE_REPO}:${IMAGE_TAG}"
+	#@docker push "${IMAGE_REPO}:latest"
+	#@docker push "${IMAGE_REPO}:${IMAGE_TAG}"
 
 .PHONY: gen-ci
 gen-ci: ## CircleCI用 configをgenerate
