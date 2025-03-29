@@ -10,7 +10,7 @@ db-insecure: ## rootユーザーでどこからでも接続可能にする(insec
 	@docker compose exec db ./bin/mysql -u root --skip-password -e "CREATE USER 'root'@'%' IDENTIFIED BY ''; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'; FLUSH PRIVILEGES; DROP USER 'root'@'localhost';"
 .PHONY: db-down
 db-down: ## db down
-	@docker stop $(docker container ps --filter "ancestor=circleci-rails-db" --format="{{.ID}}")
+	@docker stop $(shell docker container ps --filter "ancestor=circleci-rails-db" --format="{{.ID}}")
 
 .PHONY: build-and-push-docker
 build-and-push-docker: ## build docker image and push
