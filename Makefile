@@ -15,6 +15,7 @@ db-down: ## db down
 .PHONY: down
 down: ## docker compose down
 	@docker compose down
+	@docker stop $(shell docker container ps --filter 'ancestor=circleci-rails-rails' --format='{{.ID}}')
 
 .PHONY: build-and-push-docker
 build-and-push-docker: ## build docker image and push
