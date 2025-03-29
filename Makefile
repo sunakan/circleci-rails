@@ -12,6 +12,10 @@ db-insecure: ## rootユーザーでどこからでも接続可能にする(insec
 db-down: ## db down
 	@docker stop $(shell docker container ps --filter "ancestor=circleci-rails-db" --format="{{.ID}}")
 
+.PHONY: down
+down: ## docker compose down
+	@docker compose down
+
 .PHONY: build-and-push-docker
 build-and-push-docker: ## build docker image and push
 	@make build-and-push-docker-dev
