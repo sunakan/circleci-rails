@@ -1,4 +1,4 @@
-require 'mysql2'
+require 'mysql2-cs-bind'
 
 client = Mysql2::Client.new(
   host: 'db',
@@ -7,7 +7,6 @@ client = Mysql2::Client.new(
 )
 
 sql = 'SELECT * FROM users WHERE name = ?'
-stmt = client.prepare(sql)
-stmt.execute('John')
-stmt.execute('太郎')
-client.prepare(sql).execute('Dan')
+client.xquery(sql, 'John')
+client.xquery(sql, '太郎')
+client.xquery(sql, 'Dan')
