@@ -8,7 +8,16 @@ gem 'rails', '~> 8.0.2'
 
 # mysql2
 # MySQLに接続するためのgem
+# ActiveRecordのアダプタとして利用
+# Rails無しで、単体でも使用可能
+# 例: client.prepare(sql).execute('sample')
 gem 'mysql2', '~> 0.5'
+
+# mysql2-cs-bind
+# Railsでは使わない(DBとの通信回数を観察するための実験で利用するgem)
+# クライアントサイドでプレースホルダーをbind可能
+# 例: client.xquery(sql, 'sample')
+gem 'mysql2-cs-bind', require: false
 
 # puma
 # webサーバー(デファクト)

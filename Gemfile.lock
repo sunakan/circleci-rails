@@ -120,6 +120,8 @@ GEM
     minitest (5.25.5)
     msgpack (1.8.0)
     mysql2 (0.5.6)
+    mysql2-cs-bind (0.1.1)
+      mysql2
     net-imap (0.5.6)
       date
       net-protocol
@@ -284,6 +286,7 @@ DEPENDENCIES
   bootsnap
   brakeman
   mysql2 (~> 0.5)
+  mysql2-cs-bind
   puma (>= 5.0)
   rails (~> 8.0.2)
   rspec-rails
