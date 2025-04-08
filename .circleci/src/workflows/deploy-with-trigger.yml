@@ -1,6 +1,10 @@
 #
 # Triggerから実行されても実行OK
 #
+when:
+  and:
+    - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+    - equal: [ "hourly-hello", << pipeline.schedule.name >> ]
 jobs:
   - start-branch-filter:
       filters:
