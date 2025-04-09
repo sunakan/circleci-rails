@@ -39,9 +39,12 @@ jobs:
       - run:
           name: config生成
           command: cd .circleci && bin/generate-config.sh
-      - orb-continuation/continue:
-          configuration_path: .circleci/generated-config.yml
+      #- orb-continuation/continue:
+      #    configuration_path: .circleci/generated-config.yml
 workflows:
   dynamic-config:
+    jobs:
+      - setup
+  dynamic-config2:
     jobs:
       - setup
